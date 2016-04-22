@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>US Unemployment Data Map</title>
+  <meta charset="utf-8">
+  <meta name="description" content="US Unemployment Data Map">
+  <meta name="author" content="Stephen Auyeung">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>US Unemployment Data Map</h1>
+    <h2>Exploring US Unemployment by State and other factors</h2>
+    <p>Stephen Auyeung<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About the application</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/img/app_ss.png" height="350px"></img></p>
+
+<p>The unemployment data map is a geographic visualization of US unemployment data from 1999-2015.  Users can interact with the map by using input widgets for changing &#39;Year&#39;, &#39;Age Group&#39; or &#39;Race&#39; menus.  The application relies on the <code>googleVis</code> library, and a simple reactive function to manipulate the data presented on the map. <a href="https://stvauyeung.shinyapps.io/us_labor_map_app/">See it live.</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Data sources and transformation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The data comes from the <a href="http://www.bls.gov/cps/tables.htm">Bureau f Labor Statistics website</a>.  Original datasets can be found in the <code>datasets</code> directory of the project repository, which is <a href="https://github.com/stvauyeung/us-unemployment-map">available on github</a>.  These files were combined and transformed using MS Excel, adding additional factors columns for &#39;Year&#39;, &#39;Age&#39;, and &#39;Race&#39;.  Observations with &#39;Gender&#39; specific segmentations were removed.  This new dataset is saved as <code>mapData.csv</code>, under the app&#39;s <code>data</code> directory.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Slicing the data using user input</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>By using reactive statements, the application is able to listen for user input, and instantly update the dataset represented through the Google Vis map.  Below is the filter function used to dynamically update the map data.</p>
+
+<pre><code class="r">filterData &lt;- function(mapData, year, age, race) {
+    newData &lt;- mapData[mapData$Year == year,]
+    newData &lt;- newData[newData$Age == age,]
+    newData &lt;- newData[newData$Race == race,]
+    return(newData)
+}
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Conclusion</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Open data sources are available all over the internet.  Tools like Shiny make it easy to build interactive visualizations to give people new ways to interact with and understand complex data.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About the application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data sources and transformation'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Slicing the data using user input'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Conclusion'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
